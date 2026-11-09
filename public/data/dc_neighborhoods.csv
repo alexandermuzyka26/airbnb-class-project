@@ -1,0 +1,41 @@
+neighborhood,active_listings,entire_home_share,median_price_1br_entire_usd,median_nights_booked_12mo,median_revenue_12mo_usd,center_latitude,center_longitude,hosted_license_share,unhosted_license_share,exempt_share
+"Brightwood Park, Crestwood, Petworth",197,0.8934,99.0,102,11340.0,38.9472,-77.0254,0.8832,0.0102,0.1066
+"Brookland, Brentwood, Langdon",72,0.9306,97.0,113,16878.0,38.9295,-76.9826,0.7083,0.0417,0.25
+"Capitol Hill, Lincoln Park",322,0.9286,152.0,174,29487.0,38.8858,-76.9923,0.7733,0.028,0.1988
+"Capitol View, Marshall Heights, Benning Heights",73,0.726,81.0,114,9450.0,38.887,-76.9319,0.8904,0.0274,0.0822
+"Cathedral Heights, McLean Gardens, Glover Park",24,0.7083,136.0,63,11688.0,38.9236,-77.0747,0.9167,0.0417,0.0417
+"Cleveland Park, Woodley Park, Massachusetts Avenue Heights, Woodland-Normanstone Terrace",21,0.9524,141.0,144,16632.0,38.9312,-77.0601,0.9524,0.0,0.0476
+"Colonial Village, Shepherd Park, North Portal Estates",15,0.8,93.0,36,5670.0,38.9833,-77.0324,0.8,0.0667,0.1333
+"Columbia Heights, Mt. Pleasant, Pleasant Plains, Park View",243,0.7942,115.5,132,16170.0,38.9303,-77.031,0.8807,0.0247,0.0947
+"Congress Heights, Bellevue, Washington Highlands",65,0.8154,104.0,48,5664.0,38.8398,-77.0018,0.5385,0.0923,0.3692
+"Deanwood, Burrville, Grant Park, Lincoln Heights, Fairmont Heights",32,0.8125,100.0,72,5562.0,38.899,-76.9256,0.875,0.0625,0.0625
+"Douglas, Shipley Terrace",11,0.8182,98.0,114,24990.0,38.8478,-76.9798,0.8182,0.1818,0.0
+"Downtown, Chinatown, Penn Quarters, Mount Vernon Square, North Capitol Street",88,0.8182,217.0,51,11760.0,38.9018,-77.0226,0.375,0.1023,0.5227
+"Dupont Circle, Connecticut Avenue/K Street",163,0.7853,149.0,168,22968.0,38.9111,-77.0413,0.5153,0.0184,0.4663
+"Eastland Gardens, Kenilworth",3,1.0,80.0,198,29160.0,38.9106,-76.939,0.6667,0.0,0.3333
+"Edgewood, Bloomingdale, Truxton Circle, Eckington",255,0.8235,119.0,156,16992.0,38.9156,-77.0099,0.898,0.0196,0.0824
+"Fairfax Village, Naylor Gardens, Hillcrest, Summit Park",16,0.8125,88.0,81,7326.0,38.8614,-76.9634,0.6875,0.0,0.3125
+"Friendship Heights, American University Park, Tenleytown",40,0.725,140.0,102,14589.0,38.9492,-77.0817,0.85,0.025,0.125
+"Georgetown, Burleith/Hillandale",94,0.9043,151.0,219,32512.5,38.9094,-77.064,0.4362,0.0745,0.4894
+"Hawthorne, Barnaby Woods, Chevy Chase",11,1.0,104.0,126,19152.0,38.9687,-77.0615,1.0,0.0,0.0
+Historic Anacostia,22,0.6364,98.0,114,7803.0,38.8628,-76.9863,0.7273,0.0,0.2727
+"Howard University, Le Droit Park, Cardozo/Shaw",72,0.8611,140.0,156,21675.0,38.9161,-77.0244,0.8472,0.0278,0.125
+"Ivy City, Arboretum, Trinidad, Carver Langston",141,0.8582,113.0,108,12750.0,38.9049,-76.984,0.6028,0.0355,0.3617
+"Kalorama Heights, Adams Morgan, Lanier Heights",90,0.8222,136.0,135,19440.0,38.921,-77.0438,0.5778,0.0222,0.4
+"Lamont Riggs, Queens Chapel, Fort Totten, Pleasant Hill",46,0.8261,96.0,81,8736.0,38.955,-77.0028,0.8913,0.0,0.1087
+"Mayfair, Hillbrook, Mahaning Heights",20,0.75,100.0,99,8505.0,38.8992,-76.9457,0.7,0.05,0.25
+"Near Southeast, Navy Yard",33,0.6364,243.0,90,15876.0,38.8779,-77.0042,0.303,0.0,0.697
+"North Cleveland Park, Forest Hills, Van Ness",15,0.8667,125.0,96,14304.0,38.9466,-77.0637,0.8,0.0,0.2
+"North Michigan Park, Michigan Park, University Heights",51,0.8039,89.5,90,8100.0,38.9435,-76.9905,0.7255,0.0196,0.2549
+"River Terrace, Benning, Greenway, Dupont Park",35,0.8,83.0,104,10808.0,38.8891,-76.9534,0.8857,0.0286,0.0857
+"Shaw, Logan Circle",155,0.7097,149.5,150,25245.0,38.9104,-77.0254,0.7677,0.0129,0.2194
+"Sheridan, Barry Farm, Buena Vista",18,0.6111,123.0,54,9192.0,38.8582,-76.9877,0.7778,0.1111,0.1111
+"Southwest Employment Area, Southwest/Waterfront, Fort McNair, Buzzard Point",49,0.6327,191.0,72,13896.0,38.8734,-77.0142,0.4694,0.0204,0.5102
+"Spring Valley, Palisades, Wesley Heights, Foxhall Crescent, Foxhall Village, Georgetown Reservoir",35,0.6,141.0,96,10800.0,38.9198,-77.0947,0.8286,0.0571,0.1143
+"Takoma, Brightwood, Manor Park",62,0.7903,89.0,68,9120.0,38.9651,-77.0223,0.871,0.0323,0.0968
+"Twining, Fairlawn, Randle Highlands, Penn Branch, Fort Davis Park, Fort Dupont",74,0.7973,95.5,102,13293.0,38.8704,-76.97,0.7973,0.027,0.1757
+"Union Station, Stanton Park, Kingman Park",401,0.9327,144.0,168,24225.0,38.8981,-76.9934,0.7731,0.0075,0.2195
+"West End, Foggy Bottom, GWU",21,0.8095,178.0,246,39270.0,38.9049,-77.0513,0.1905,0.0,0.8095
+"Woodland/Fort Stanton, Garfield Heights, Knox Hill",7,0.8571,91.0,72,8526.0,38.8552,-76.9689,0.5714,0.1429,0.2857
+"Woodridge, Fort Lincoln, Gateway",34,0.8824,100.0,57,8568.0,38.9313,-76.967,0.7941,0.0588,0.0294
+All DC,3126,0.8353,128.0,132,17388.0,38.9095,-77.0098,0.7441,0.0282,0.2265

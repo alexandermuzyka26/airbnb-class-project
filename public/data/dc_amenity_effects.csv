@@ -1,0 +1,11 @@
+field_name,amenity,listings_with,listings_without,median_price_index_with,median_price_index_without,price_premium,median_nights_booked_with,median_nights_booked_without,reliable
+free_parking,Free parking on premises,1011.0,2115.0,1.0,1.0,0.0,120.0,132.0,Yes
+in_unit_washer,In-unit washer,2350.0,776.0,1.0,0.968,0.033,126.0,144.0,Yes
+workspace,Dedicated workspace,2181.0,945.0,1.0,0.99,0.01,126.0,138.0,Yes
+pets_allowed,Pets allowed,919.0,2207.0,1.0,1.0,0.0,102.0,138.0,Yes
+outdoor_space,"Outdoor space (patio, balcony or yard)",1503.0,1623.0,1.0,1.0,0.0,132.0,126.0,Yes
+fireplace,Indoor fireplace,313.0,2813.0,1.076,1.0,0.076,114.0,132.0,Yes
+hot_tub,Hot tub,31.0,3095.0,1.09,1.0,0.09,78.0,132.0,No - too few listings
+pool,Pool,133.0,2993.0,1.322,1.0,0.322,54.0,132.0,Yes
+gym,Gym,223.0,2903.0,1.403,0.994,0.411,54.0,138.0,Yes
+ev_charger,EV charger,91.0,3035.0,1.09,1.0,0.09,144.0,132.0,Yes
