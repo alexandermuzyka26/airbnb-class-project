@@ -293,14 +293,16 @@ export const InputPanel: React.FC<InputPanelProps> = ({
 
         {/* 6. Amenities */}
         <div>
+        <div className='flex flex-col'>
           <div className="flex items-center justify-between mb-2">
             <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">
               6. Amenities
             </label>
-            <p className='text-xs text-slate-700'>Percentages reflect price premium. 0% if no effect.</p>
             <span className="text-[11px] text-slate-500">
               {Object.values(inputs.checkedAmenities).filter(Boolean).length} selected
             </span>
+          </div>
+            <p className='text-xs text-slate-700'>Percentages reflect price premium. 0% if no effect.</p>
           </div>
 
           <div className="space-y-1.5 max-h-[300px] overflow-y-auto pr-1">
