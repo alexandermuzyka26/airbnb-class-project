@@ -34,11 +34,18 @@ Prices are posted asking prices, excluding cleaning fees and taxes.
    `All DC|listing type` if the neighborhood has fewer than 5 comparable listings.
 2. Finish level → percentile: `10 + (finish − 1) × 80/9`, then linear interpolation between
    the bracketing p10/p25/median/p75/p90 prices.
-3. Add the premiums of the reliable amenities you checked, capped at ±20%.
-4. Round to the nearest $5. Annual revenue = nightly rate × median booked nights.
+3. Add the premiums of the reliable amenities you checked, capped at ±20%. Amenities without
+   enough listings to estimate a premium (currently hot tub) are not offered.
+4. Optional bathroom adjustment (entire homes, 1–4+ BR): the median `price_index` (listing
+   price ÷ its neighborhood × bedroom comp median) of listings with that bedroom and bathroom
+   count, minus 1, capped at ±20%. It is computed in the browser from `dc_listings.csv`. Only
+   bathroom counts with ≥20 listings are offered. Studios (all 1 bath) and private rooms
+   (bathroom counts are mostly shared baths) get no bathroom input.
+5. Rate = base × (1 + amenities) × (1 + bathrooms), rounded to the nearest $5.
+   Annual revenue = nightly rate × median booked nights.
 
 Sample case (Capitol Hill, Lincoln Park / Entire home / 2 BR / finish 7 / in-unit washer +
-dedicated workspace): 63.3rd percentile → $248.47 base × 1.043 → **$260/night**, × 186
+dedicated workspace, bathrooms "Not sure"): 63.3rd percentile → $248.47 base × 1.043 → **$260/night**, × 186
 nights → **$48,360/year**.
 
 ## Run locally

@@ -79,6 +79,7 @@ export interface PricingInputs {
   rentalType: RentalType;
   bedrooms: BedroomType;
   finish: number; // 1 - 10
+  bathrooms: string | null; // bucket label from BathroomEffect.bucket ("1", "1.5", ..., "4+"); null = not specified
   checkedAmenities: Record<string, boolean>; // key: field_name
 }
 
@@ -88,6 +89,17 @@ export interface AmenityCalculationBreakdown {
   premium: number;
   reliable: boolean;
   checked: boolean;
+}
+
+// Premium for a bathroom count within one bedroom group, derived from dc_listings.csv.
+// premium = median(price_index) - 1, where price_index = listing price / its comp-set median.
+export interface BathroomEffect {
+  bedroomGroup: string;
+  bucket: string;
+  bathroomsValue: number; // numeric sort key (4+ => 4)
+  listings: number;
+  medianPriceIndex: number;
+  premium: number;
 }
 
 export interface CalculationResult {
@@ -105,6 +117,8 @@ export interface CalculationResult {
   amenityBreakdowns: AmenityCalculationBreakdown[];
   rawAdjustment: number;
   cappedAdjustment: number;
+  bathroomEffect: BathroomEffect | null; // null when not specified / not applicable
+  bathroomAdjustment: number; // capped bathroom premium actually applied
   recommendedRate: number;
   estimatedAnnualRevenue: number;
   comparableCount: number;

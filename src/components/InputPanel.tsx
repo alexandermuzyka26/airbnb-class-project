@@ -1,19 +1,21 @@
 import React from 'react';
 import {
   AmenityEffect,
+  BathroomEffect,
   BedroomType,
   Neighborhood,
   PricingInputs,
   RentalType,
 } from '../types';
 import { RotateCcw, Check, Info } from 'lucide-react';
-import { formatPercent } from '../utils/pricing';
+import { BATHROOM_ADJUSTMENT_CAP, formatPercent } from '../utils/pricing';
 
 interface InputPanelProps {
   inputs: PricingInputs;
   onChange: (inputs: PricingInputs) => void;
   neighborhoods: Neighborhood[];
   amenities: AmenityEffect[];
+  bathroomEffects: Map<string, BathroomEffect[]>;
   onReset: () => void;
 }
 
@@ -24,8 +26,27 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   onChange,
   neighborhoods,
   amenities,
+  bathroomEffects,
   onReset,
 }) => {
+  // Only amenities with enough listings to estimate a premium are offered
+  const reliableAmenities = React.useMemo(
+    () => amenities.filter((a) => a.reliable.trim().toLowerCase() === 'yes'),
+    [amenities]
+  );
+
+  // Bathroom choices for the current bedroom count (entire homes only; empty = section hidden)
+  const bathroomOptions =
+    inputs.rentalType === 'Entire home' ? bathroomEffects.get(inputs.bedrooms) ?? [] : [];
+  const selectedBathroom = bathroomOptions.find((o) => o.bucket === inputs.bathrooms) ?? null;
+
+  // Keep a bathroom choice only if it still exists for the new rental type / bedroom count
+  const keepBathrooms = (rentalType: RentalType, bedrooms: BedroomType) => {
+    if (rentalType !== 'Entire home' || !inputs.bathrooms) return null;
+    const options = bathroomEffects.get(bedrooms) ?? [];
+    return options.some((o) => o.bucket === inputs.bathrooms) ? inputs.bathrooms : null;
+  };
+
   // Alphabetical list of neighborhoods excluding "All DC"
   const sortedNeighborhoods = React.useMemo(() => {
     return neighborhoods
@@ -38,11 +59,11 @@ export const InputPanel: React.FC<InputPanelProps> = ({
   };
 
   const handleRentalTypeChange = (type: RentalType) => {
-    onChange({ ...inputs, rentalType: type });
+    onChange({ ...inputs, rentalType: type, bathrooms: keepBathrooms(type, inputs.bedrooms) });
   };
 
   const handleBedroomsChange = (bedrooms: BedroomType) => {
-    onChange({ ...inputs, bedrooms });
+    onChange({ ...inputs, bedrooms, bathrooms: keepBathrooms(inputs.rentalType, bedrooms) });
   };
 
   const handleFinishChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -169,14 +190,73 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           </div>
         )}
 
-        {/* 4. Interior finish & condition */}
+        {/* 4. Bathrooms (entire homes whose bedroom count has bathroom data) */}
+        {bathroomOptions.length > 0 && (
+          <div>
+            <label className="block text-xs font-bold text-slate-700 tracking-wide uppercase mb-1.5">
+              4. Bathrooms
+            </label>
+            <div className="flex flex-wrap gap-1.5">
+              {[null, ...bathroomOptions].map((opt) => {
+                const value = opt ? opt.bucket : null;
+                const isSelected = inputs.bathrooms === value;
+                return (
+                  <button
+                    key={value ?? 'none'}
+                    type="button"
+                    onClick={() => onChange({ ...inputs, bathrooms: value })}
+                    className={`py-2 px-2.5 min-w-[2.75rem] text-center text-xs font-semibold rounded-xl border transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#1F3A5F] text-white border-[#1F3A5F] shadow-xs'
+                        : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+                    }`}
+                  >
+                    {value ?? 'Not sure'}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="mt-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
+              {selectedBathroom ? (
+                <>
+                  <span className="text-slate-500">Adjustment: </span>
+                  <span
+                    className={`font-mono font-semibold ${
+                      selectedBathroom.premium >= 0 ? 'text-emerald-700' : 'text-rose-700'
+                    }`}
+                  >
+                    {formatPercent(
+                      Math.min(
+                        BATHROOM_ADJUSTMENT_CAP,
+                        Math.max(-BATHROOM_ADJUSTMENT_CAP, selectedBathroom.premium)
+                      )
+                    )}
+                  </span>
+                  <span className="text-slate-400 text-[11px] ml-1">
+                    ({selectedBathroom.listings} {inputs.bedrooms} listings with {selectedBathroom.bucket} bath
+                    {Math.abs(selectedBathroom.premium) > BATHROOM_ADJUSTMENT_CAP
+                      ? `; ${formatPercent(selectedBathroom.premium)} capped at ±${BATHROOM_ADJUSTMENT_CAP * 100}%`
+                      : ''}
+                    )
+                  </span>
+                </>
+              ) : (
+                <span className="text-slate-500">
+                  No bathroom adjustment. Pick a count to compare against similar {inputs.bedrooms} homes.
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* 5. Interior finish & condition */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label
               htmlFor="finish-slider"
               className="text-xs font-bold text-slate-700 tracking-wide uppercase"
             >
-              4. Interior Finish & Condition
+              5. Interior Finish & Condition
             </label>
             <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-[#1F3A5F] text-white">
               Level {inputs.finish} / 10
@@ -211,19 +291,20 @@ export const InputPanel: React.FC<InputPanelProps> = ({
           </div>
         </div>
 
-        {/* 5. Amenities */}
+        {/* 6. Amenities */}
         <div>
           <div className="flex items-center justify-between mb-2">
             <label className="text-xs font-bold text-slate-700 tracking-wide uppercase">
-              5. Amenities
+              6. Amenities
             </label>
+            <p className='text-xs text-slate-700'>Percentages reflect price premium. 0% if no effect.</p>
             <span className="text-[11px] text-slate-500">
               {Object.values(inputs.checkedAmenities).filter(Boolean).length} selected
             </span>
           </div>
 
           <div className="space-y-1.5 max-h-[300px] overflow-y-auto pr-1">
-            {amenities.map((item) => {
+            {reliableAmenities.map((item) => {
               const isChecked = Boolean(inputs.checkedAmenities[item.field_name]);
               const isReliable = item.reliable.trim().toLowerCase() === 'yes';
               const premium = Number(item.price_premium) || 0;

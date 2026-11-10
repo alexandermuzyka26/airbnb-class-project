@@ -38,6 +38,8 @@ export const HeroPriceCard: React.FC<HeroPriceCardProps> = ({
     amenityBreakdowns,
     rawAdjustment,
     cappedAdjustment,
+    bathroomEffect,
+    bathroomAdjustment,
     medianNights,
   } = calculation;
 
@@ -145,7 +147,7 @@ export const HeroPriceCard: React.FC<HeroPriceCardProps> = ({
                 Step-by-Step Pricing Formula
               </h3>
               <p className="text-slate-600 mb-3">
-                Calculated strictly from empirical rates in <code className="bg-white px-1.5 py-0.5 rounded border border-slate-200 font-mono text-[11px]">dc_rates.csv</code> and amenity regression premiums in <code className="bg-white px-1.5 py-0.5 rounded border border-slate-200 font-mono text-[11px]">dc_amenity_effects.csv</code>.
+                Calculated strictly from empirical rates in <code className="bg-white px-1.5 py-0.5 rounded border border-slate-200 font-mono text-[11px]">dc_rates.csv</code> amenity regression premiums in <code className="bg-white px-1.5 py-0.5 rounded border border-slate-200 font-mono text-[11px]">dc_amenity_effects.csv</code>, and bathroom premiums from <code className="bg-white px-1.5 py-0.5 rounded border border-slate-200 font-mono text-[11px]">dc_listings.csv</code>.
               </p>
             </div>
 
@@ -188,7 +190,7 @@ export const HeroPriceCard: React.FC<HeroPriceCardProps> = ({
               {/* Step D */}
               <div className="bg-white p-3 rounded-lg border border-slate-200">
                 <div className="font-semibold text-slate-900 mb-1">
-                  3. Amenity Premium Adjustment
+                  3. Amenity & Bathroom Adjustments
                 </div>
                 <div className="space-y-1 mb-2">
                   {amenityBreakdowns.filter((a) => a.checked).length === 0 ? (
@@ -216,6 +218,19 @@ export const HeroPriceCard: React.FC<HeroPriceCardProps> = ({
                     {formatPercent(cappedAdjustment)}
                   </span>
                 </div>
+                <div className="mt-3 pt-2 border-t border-slate-100 text-[11px]">
+                  <div className="flex justify-between font-mono font-semibold">
+                    <span>Bathrooms (capped ±20%):</span>
+                    <span className={bathroomAdjustment >= 0 ? 'text-emerald-700' : 'text-rose-700'}>
+                      {formatPercent(bathroomAdjustment)}
+                    </span>
+                  </div>
+                  <p className="text-slate-500 mt-1">
+                    {bathroomEffect
+                      ? `${bathroomEffect.bucket} bath: median of ${bathroomEffect.listings} ${bathroomEffect.bedroomGroup} listings prices at ${bathroomEffect.medianPriceIndex.toFixed(3)}× their comp median.`
+                      : 'Not specified (no adjustment).'}
+                  </p>
+                </div>
               </div>
 
               {/* Step E & F */}
@@ -224,7 +239,11 @@ export const HeroPriceCard: React.FC<HeroPriceCardProps> = ({
                   4. Nightly Rate & Annual Revenue
                 </div>
                 <div className="space-y-1 font-mono text-[11px]">
-                  <div>Raw = ${basePrice.toFixed(2)} × (1 + {cappedAdjustment.toFixed(3)}) = ${(basePrice * (1 + cappedAdjustment)).toFixed(2)}</div>
+                  <div>
+                    Raw = ${basePrice.toFixed(2)} × (1 + {cappedAdjustment.toFixed(3)})
+                    {bathroomAdjustment !== 0 && <> × (1 + {bathroomAdjustment.toFixed(3)})</>} = $
+                    {(basePrice * (1 + cappedAdjustment) * (1 + bathroomAdjustment)).toFixed(2)}
+                  </div>
                   <div className="font-bold text-[#FF5A5F] text-xs">
                     Rounded to nearest $5 = ${recommendedRate}/night
                   </div>

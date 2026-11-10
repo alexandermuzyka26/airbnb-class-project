@@ -7,7 +7,7 @@ import {
   PricingInputs,
   RateRow,
 } from './types';
-import { calculatePrice } from './utils/pricing';
+import { calculatePrice, computeBathroomEffects } from './utils/pricing';
 import { Header } from './components/Header';
 import { InputPanel } from './components/InputPanel';
 import { HeroPriceCard } from './components/HeroPriceCard';
@@ -27,6 +27,7 @@ const INITIAL_SAMPLE_INPUTS: PricingInputs = {
   rentalType: 'Entire home',
   bedrooms: '2 BR',
   finish: 7,
+  bathrooms: null,
   checkedAmenities: {
     in_unit_washer: true,
     workspace: true,
@@ -131,11 +132,14 @@ export default function App() {
     setInputs((prev) => ({ ...prev, neighborhood: name }));
   };
 
+  // Bathroom premiums per bedroom group, derived once from the listing-level data
+  const bathroomEffects = useMemo(() => computeBathroomEffects(listings), [listings]);
+
   // Perform exact price calculation
   const calculationResult = useMemo(() => {
     if (ratesMap.size === 0 || amenities.length === 0) return null;
-    return calculatePrice(inputs, ratesMap, amenities);
-  }, [inputs, ratesMap, amenities]);
+    return calculatePrice(inputs, ratesMap, amenities, bathroomEffects);
+  }, [inputs, ratesMap, amenities, bathroomEffects]);
 
   // Comparable listings for the histogram and map
   const compListings = useMemo(() => {
@@ -184,6 +188,7 @@ export default function App() {
                 onChange={setInputs}
                 neighborhoods={neighborhoods}
                 amenities={amenities}
+                bathroomEffects={bathroomEffects}
                 onReset={handleReset}
               />
             </div>
