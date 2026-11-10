@@ -302,7 +302,7 @@ export const InputPanel: React.FC<InputPanelProps> = ({
               {Object.values(inputs.checkedAmenities).filter(Boolean).length} selected
             </span>
           </div>
-            <p className='text-xs text-slate-700'>Percentages reflect price premium. 0% if no effect.</p>
+            <p className='text-xs text-slate-700 pb-2'>Percentages reflect price premium. 0% if no effect.</p>
           </div>
 
           <div className="space-y-1.5 max-h-[300px] overflow-y-auto pr-1">
